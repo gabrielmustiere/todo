@@ -1,0 +1,61 @@
+<div {{ attributes.defaults({class: 'space-y-6'}) }}>
+    {% set sections = {'tasks-todo': this.todoTasks, 'tasks-done': this.doneTasks}|filter(tasks => tasks is not empty) %}
+    {% set title_error = _errors.get('title') %}
+
+    <form data-action="live#action:prevent" data-live-action-param="add" novalidate>
+        <label for="task-title" class="sr-only">Nouvelle tâche</label>
+        {# data-model sur <twig:Input> serait pris par Live pour une liaison de composant enfant : input natif aux classes du composant Input #}
+        <input
+            id="task-title"
+            name="title"
+            type="text"
+            data-model="norender|title"
+            value="{{ title }}"
+            data-test="task-input"
+            placeholder="Ajouter une tâche puis Entrée"
+            autocomplete="off"
+            autofocus
+            aria-invalid="{{ title_error ? 'true' : 'false' }}"
+            {% if title_error %}aria-describedby="task-title-error"{% endif %}
+            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body aria-invalid:bg-danger-soft aria-invalid:border-danger-subtle aria-invalid:text-fg-danger-strong aria-invalid:focus:ring-danger aria-invalid:focus:border-danger aria-invalid:placeholder:text-fg-danger-strong"
+        >
+        {% if title_error %}
+            <p id="task-title-error" class="mt-2 text-sm text-fg-danger-strong" role="alert" data-test="task-error">{{ title_error }}</p>
+        {% endif %}
+    </form>
+
+    {% if sections is empty %}
+        <p class="text-sm text-body" data-test="tasks-empty">Aucune tâche pour l'instant.</p>
+    {% endif %}
+
+    {% for section, tasks in sections %}
+        <ul class="divide-y divide-default rounded-base border border-default bg-neutral-primary" data-test="{{ section }}">
+            {% for task in tasks %}
+                {% set done = task.completedAt is not null %}
+                <li id="task-{{ task.id }}" class="flex items-center gap-3 px-4 py-3" data-test="task-item">
+                    <twig:Checkbox
+                        id="task-{{ task.id }}-toggle"
+                        :checked="done"
+                        data-action="live#action"
+                        data-live-action-param="toggle"
+                        data-live-id-param="{{ task.id }}"
+                        data-test="task-toggle"
+                    />
+                    <label for="task-{{ task.id }}-toggle" class="min-w-0 flex-1 break-words text-sm {{ done ? 'text-body line-through' : 'text-heading' }}" data-test="task-title">{{ task.title }}</label>
+                    <twig:Button
+                        type="button"
+                        variant="ghost"
+                        size="icon-sm"
+                        data-action="live#action"
+                        data-live-action-param="delete"
+                        data-live-id-param="{{ task.id }}"
+                        data-test="task-delete"
+                    >
+                        <twig:ux:icon name="tabler:trash" class="size-4"/>
+                        <span class="sr-only">Supprimer « {{ task.title }} »</span>
+                    </twig:Button>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</div>

@@ -1,0 +1,57 @@
+{
+  "version": 3,
+  "title": "Noter, cocher et supprimer mes tâches dans une liste unique",
+  "created": "2026-11-19",
+  "updated": "2026-11-19",
+  "tags": [
+    "taches",
+    "mvp",
+    "liste"
+  ],
+  "changelog": [
+    {
+      "date": "2026-11-19",
+      "type": "Création",
+      "description": "Pitch initial rédigé : MVP liste unique (ajouter, cocher, supprimer, persistance), recadré depuis « créer une liste »."
+    },
+    {
+      "date": "2026-11-19",
+      "type": "Planification",
+      "description": "Plan technique validé : Live Component TaskList, service TaskManager, entité Task (completed_at nullable), E2E auto-nettoyant."
+    },
+    {
+      "date": "2026-11-19",
+      "type": "ADR",
+      "description": "ADR-0001 gravé : Live Component pour les interactions dans la page (accepted)."
+    },
+    {
+      "date": "2026-11-19",
+      "type": "Implémentation",
+      "description": "6/6 étapes livrées, PHPUnit 22 OK, Playwright 7 OK, make quality vert. Écarts : TaskManagerTest en KernelTestCase (repository final, non doublable) ; tri secondaire id DESC (DATETIME à la seconde) ; validate(throw: false) au lieu du 422 (testable) ; input natif au lieu de <twig:Input> (data-model capté par Live) ; logout-prefetch.spec.ts aussi réaligné sur « Tâches »."
+    },
+    {
+      "date": "2026-11-19",
+      "type": "Review",
+      "description": "Review src/ + templates/ ouverte : prêt à commiter ; 0 bloquant, 0 important, 3 mineurs ([A11Y] erreur non annoncée, [ROBUSTESSE] limite 255 hors service, [STYLE] filtre calculé deux fois)."
+    },
+    {
+      "date": "2026-11-19",
+      "type": "Review",
+      "description": "Prêt à commiter ; 2 mineurs corrigés : [A11Y] role=\"alert\" sur l'erreur de longueur, [STYLE] filtre des sections calculé une fois. 1 mineur en dette : [ROBUSTESSE] limite 255 absente de TaskManager."
+    },
+    {
+      "date": "2026-11-19",
+      "type": "Sync",
+      "description": "6 écarts réalignés dans le plan, 12/12 critères d'acceptation et 7/7 critères de sortie cochés, 3 dettes ouvertes (1 critique), vision annotée."
+    },
+    {
+      "date": "2026-11-19",
+      "type": "Livraison",
+      "description": "Liste de tâches unique livrée : ajouter, cocher, supprimer et persister ses tâches."
+    }
+  ],
+  "delivery": {
+    "date": "2026-11-19",
+    "release": null
+  }
+}
