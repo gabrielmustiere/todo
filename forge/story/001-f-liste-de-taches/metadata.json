@@ -48,10 +48,15 @@
       "date": "2026-11-19",
       "type": "Livraison",
       "description": "Liste de tâches unique livrée : ajouter, cocher, supprimer et persister ses tâches."
+    },
+    {
+      "date": "2026-11-19",
+      "type": "Release",
+      "description": "Publiée dans v0.1.0 — Ma liste de tâches."
     }
   ],
   "delivery": {
     "date": "2026-11-19",
-    "release": null
+    "release": "v0.1.0"
   }
 }
